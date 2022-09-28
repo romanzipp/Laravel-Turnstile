@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use romanzipp\Turnstile\Rules\TurnstileCaptcha;
 
-class TurnstileProvider extends ServiceProvider
+class TurnstileServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
