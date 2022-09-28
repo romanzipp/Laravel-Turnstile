@@ -3,12 +3,13 @@
 namespace romanzipp\Turnstile;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
+use Throwable;
 
 class Validator
 {
-    public function isValid(string $token): ValidationResponse
+    public function isValid(?string $token): ValidationResponse
     {
         $formData = [
             'secret' => config('turnstile.site_secret'),
@@ -24,28 +25,34 @@ class Validator
         try {
             $client = new Client();
             $response = $client->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'form_data' => $formData,
+                'form_params' => $formData,
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
             ]);
 
-            $data = json_decode((string) $response->getBody()->getContents());
+            $data = json_decode($response->getBody()->getContents());
 
             if ( ! property_exists($data, 'success')) {
                 return new ValidationResponse(false);
             }
 
-            if ( ! $data->success){
+            if ( ! $data->success) {
                 return new ValidationResponse(false, $data->{'error-codes'});
             }
 
             return new ValidationResponse(true);
-        } catch (ClientException $exception) {
+        } catch (RequestException $exception) {
+            if ( ! $exception->hasResponse() || 0 === $exception->getResponse()->getBody()->getSize()) {
+                return new ValidationResponse(false);
+            }
+
+            $data = @json_decode($exception->getResponse()->getBody()->getContents());
+
+            return new ValidationResponse(false, $data->{'error-codes'} ?? []);
+        } catch (Throwable $exception) {
             // TODO Add config to return true if call fails due to another reason
-            return new ValidationResponse(false);
-        } catch (\Throwable $exception) {
-            return new ValidationResponse(false);
+            return new ValidationResponse(false, [$exception->getMessage()]);
         }
     }
 }

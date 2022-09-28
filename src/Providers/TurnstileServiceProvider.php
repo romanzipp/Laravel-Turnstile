@@ -19,8 +19,8 @@ class TurnstileServiceProvider extends ServiceProvider
             dirname(__DIR__) . '/../config/turnstile.php' => config_path('turnstile.php'),
         ], 'config');
 
-        Validator::extend('turnstile', TurnstileCaptcha::class . '@passes');
-        Validator::extend('turnstile_captcha', TurnstileCaptcha::class . '@passes');
+        Validator::extend('turnstile', TurnstileCaptcha::class);
+        Validator::extend('turnstile_captcha', TurnstileCaptcha::class);
     }
 
     /**

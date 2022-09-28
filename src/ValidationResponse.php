@@ -8,7 +8,7 @@ class ValidationResponse
 
     public array $errors;
 
-    public function __construct(bool $valid, array $errors)
+    public function __construct(bool $valid, array $errors = [])
     {
         $this->valid = $valid;
         $this->errors = $errors;
@@ -20,23 +20,38 @@ class ValidationResponse
             return 'Unknown error';
         }
 
-        switch ($this->errors) {
-            case 'missing-input-secret':
-                return 'The secret parameter was not passed.';
-            case 'invalid-input-secret':
-                return 'The secret parameter was invalid or did not exist.';
-            case 'missing-input-response':
-                return 'The response parameter was not passed.';
-            case 'invalid-input-response':
-                return 'The response parameter is invalid or has expired.';
-            case 'bad-request':
-                return 'The request was rejected because it was malformed.';
-            case 'timeout-or-duplicate':
-                return 'The response parameter has already been validated before.';
-            case 'internal-error':
-                return 'An internal error happened while validating the response. The request can be retried.';
+        $errors = [];
+
+        foreach ($this->errors as $error) {
+            switch ($error) {
+                case 'missing-input-secret':
+                    $errors[] = 'The secret parameter was not passed.';
+                    break;
+                case 'invalid-input-secret':
+                    $errors[] = 'The secret parameter was invalid or did not exist.';
+                    break;
+                case 'missing-input-response':
+                    $errors[] = 'The response parameter was not passed.';
+                    break;
+                case 'invalid-input-response':
+                    $errors[] = 'The response parameter is invalid or has expired.';
+                    break;
+                case 'bad-request':
+                    $errors[] = 'The request was rejected because it was malformed.';
+                    break;
+                case 'timeout-or-duplicate':
+                    $errors[] = 'The response parameter has already been validated before.';
+                    break;
+                case 'internal-error':
+                    $errors[] = 'An internal error happened while validating the response. The request can be retried.';
+                    break;
+            }
         }
 
-        return 'Unknown error';
+        if (empty($errors)) {
+            return 'Unknown error';
+        }
+
+        return implode(', ', $errors);
     }
 }
