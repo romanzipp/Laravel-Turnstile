@@ -15,11 +15,11 @@ class TurnstileCaptcha implements Rule
      *
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
-        $checker = new Validator();
+        $validator = new Validator();
 
-        return $checker->isValid($value);
+        return $validator->isValid($value);
     }
 
     /**
@@ -27,7 +27,7 @@ class TurnstileCaptcha implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The given :attribute is not allowed.';
     }
