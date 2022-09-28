@@ -6,8 +6,15 @@ class ValidationResponse
 {
     public bool $valid;
 
+    /**
+     * @var string[]
+     */
     public array $errors;
 
+    /**
+     * @param bool $valid
+     * @param string[] $errors
+     */
     public function __construct(bool $valid, array $errors = [])
     {
         $this->valid = $valid;
