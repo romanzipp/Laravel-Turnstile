@@ -32,11 +32,15 @@ TURNSTILE_SECRET_KEY=
 
 ### Document Head
 
+Injects the [script tag](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/).
+
 ```blade
 {{ romanzipp\Turnstile\Captcha::getScript() }}
 ```
 
 ### Form
+
+Injects the [form element](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/).
 
 ```blade
 {{ romanzipp\Turnstile\Captcha::getChallenge() }}
@@ -45,8 +49,10 @@ TURNSTILE_SECRET_KEY=
 ### Laravel Rule
 
 ```php
+use romanzipp\Turnstile\Rules\TurnstileCaptcha;
+
 $payload = $request->validate([
-    'cf-turnstile-response' => ['turnstile'],
+    'cf-turnstile-response' => ['required', 'string', new TurnstileCaptcha()],
 ]);
 ```
 
