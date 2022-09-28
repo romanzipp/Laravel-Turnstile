@@ -32,10 +32,12 @@ class Validator
 
             $data = json_decode((string) $response->getBody()->getContents());
 
-            dd($data);
-
-            if ( ! property_exists($data, 'success') || ! $data->success) {
+            if ( ! property_exists($data, 'success')) {
                 return new ValidationResponse(false);
+            }
+
+            if ( ! $data->success){
+                return new ValidationResponse(false, $data->{'error-codes'});
             }
 
             return new ValidationResponse(true);
