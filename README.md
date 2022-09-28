@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/packagist/l/romanzipp/laravel-turnstile.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-turnstile)
 [![GitHub Build Status](https://img.shields.io/github/workflow/status/romanzipp/Laravel-Turnstile/Tests?style=flat-square)](https://github.com/romanzipp/Laravel-Turnstile/actions)
 
-Cloudflare Turnstile package for Laravel
+[Cloudflare Turnstile](https://blog.cloudflare.com/turnstile-private-captcha-alternative/) CAPTCHA package for Laravel.
 
 ## Installation
 
