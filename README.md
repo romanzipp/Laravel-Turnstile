@@ -9,6 +9,8 @@
 
 [Cloudflare Turnstile](https://blog.cloudflare.com/turnstile-private-captcha-alternative/) CAPTCHA package for Laravel.
 
+![](https://blog.cloudflare.com/content/images/2022/09/image4-21.png)
+
 ## Installation
 
 ```
