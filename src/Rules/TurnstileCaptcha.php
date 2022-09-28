@@ -3,10 +3,13 @@
 namespace romanzipp\Turnstile\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use romanzipp\Turnstile\ValidationResponse;
 use romanzipp\Turnstile\Validator;
 
 class TurnstileCaptcha implements Rule
 {
+    public ValidationResponse  $response;
+
     /**
      * Determine if the validation rule passes.
      *
@@ -17,9 +20,9 @@ class TurnstileCaptcha implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        $validator = new Validator();
+        $this->response = (new Validator())->isValid($value);
 
-        return $validator->isValid($value);
+        return $this->response->valid;
     }
 
     /**
@@ -29,6 +32,6 @@ class TurnstileCaptcha implements Rule
      */
     public function message(): string
     {
-        return 'The given :attribute is not allowed.';
+        return $this->response->getMessage();
     }
 }

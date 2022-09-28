@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class Validator
 {
-    public function isValid(string $token): bool
+    public function isValid(string $token): ValidationResponse
     {
         $formData = [
             'secret' => config('turnstile.site_secret'),
@@ -32,15 +32,18 @@ class Validator
 
             $data = json_decode((string) $response->getBody()->getContents());
 
+            dd($data);
+
             if ( ! property_exists($data, 'success') || ! $data->success) {
-                return false;
+                return new ValidationResponse(false);
             }
 
-            return true;
+            return new ValidationResponse(true);
         } catch (ClientException $exception) {
-            return false; // Add config to return true if call fails due to another reason
+            // TODO Add config to return true if call fails due to another reason
+            return new ValidationResponse(false);
         } catch (\Throwable $exception) {
-            return false;
+            return new ValidationResponse(false);
         }
     }
 }
