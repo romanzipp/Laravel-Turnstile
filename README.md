@@ -30,6 +30,20 @@ TURNSTILE_SECRET_KEY=
 
 ## Usage
 
+### Document Head
+
+```blade
+{{ romanzipp\Turnstile\Captcha::getScript() }}
+```
+
+### Form
+
+```blade
+{{ romanzipp\Turnstile\Captcha::getChallenge() }}
+```
+
+### Laravel Rule
+
 ```php
 $payload = $request->validate([
     'captcha' => ['turnstile'],
