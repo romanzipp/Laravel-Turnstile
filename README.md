@@ -30,6 +30,12 @@ TURNSTILE_SECRET_KEY=
 
 ## Usage
 
+```php
+$payload = $request->validate([
+    'captcha' => ['turnstile'],
+]);
+```
+
 ## Development
 
 #### Run Tests
