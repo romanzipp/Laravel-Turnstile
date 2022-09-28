@@ -46,7 +46,7 @@ TURNSTILE_SECRET_KEY=
 
 ```php
 $payload = $request->validate([
-    'captcha' => ['turnstile'],
+    'cf-turnstile-response' => ['turnstile'],
 ]);
 ```
 
