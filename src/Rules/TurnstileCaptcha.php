@@ -22,7 +22,7 @@ class TurnstileCaptcha implements Rule
     {
         $this->response = (new Validator())->validate($value);
 
-        return $this->response->valid;
+        return $this->response->isValid();
     }
 
     /**
