@@ -14,10 +14,10 @@ class Captcha
     public static function getChallenge(string $theme = 'auto', string $action = ''): HtmlString
     {
         $parameters = collect([
-            'class'        => 'cf-turnstile',
+            'class' => 'cf-turnstile',
             'data-sitekey' => config('turnstile.site_key'),
-            'data-theme'   => $theme,
-            'data-action'  => $action,
+            'data-theme' => $theme,
+            'data-action' => $action,
         ])
             // Remove empty values
             ->filter()
