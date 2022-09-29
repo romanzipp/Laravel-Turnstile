@@ -6,10 +6,18 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Http\Request;
+use stdClass;
 use Throwable;
 
 class Validator
 {
+    private Client  $client;
+
+    public function __construct(Client $client = null)
+    {
+        $this->client = $client ?? new Client();
+    }
+
     public function isValid(?string $token): ValidationResponse
     {
         $formData = [
@@ -24,8 +32,7 @@ class Validator
         }
 
         try {
-            $client = new Client();
-            $response = $client->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+            $response = $this->client->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
                 'form_params' => $formData,
                 'headers' => [
                     'Accept' => 'application/json',
@@ -34,17 +41,17 @@ class Validator
 
             $data = json_decode($response->getBody()->getContents());
 
-            if ( ! property_exists($data, 'success')) {
-                return new ValidationResponse(false);
+            if ( ! ($data instanceof stdClass) || ! property_exists($data, 'success')) {
+                return new ValidationResponse(false, [ValidationResponse::INTERNAL_MALFORMED_RESPONSE]);
             }
 
             if ( ! $data->success) {
-                return new ValidationResponse(false, $data->{'error-codes'});
+                return new ValidationResponse(false, $data->{'error-codes'} ?? []);
             }
 
             return new ValidationResponse(true);
         } catch (ServerException $exception) {
-            if (config('allow_on_failure')) {
+            if (config('turnstile.allow_on_failure')) {
                 return new ValidationResponse(true);
             }
 
