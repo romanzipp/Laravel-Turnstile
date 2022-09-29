@@ -4,6 +4,7 @@ namespace romanzipp\Turnstile;
 
 class ValidationResponse
 {
+    public const INTERNAL_MALFORMED_RESPONSE = 'response-malformed';
     public const INTERNAL_SERVER_ERROR = 'server-error';
 
     public bool $valid;
@@ -55,6 +56,9 @@ class ValidationResponse
                     $errors[] = 'An internal error happened while validating the response. The request can be retried.';
                     break;
 
+                case self::INTERNAL_MALFORMED_RESPONSE:
+                    $errors[] = 'The CAPTCHA validation response is malformed';
+                    break;
                 case self::INTERNAL_SERVER_ERROR:
                     $errors[] = 'The CAPTCHA validation request did not succeed';
                     break;
