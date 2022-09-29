@@ -12,7 +12,7 @@ class Validator
     public function isValid(?string $token): ValidationResponse
     {
         $formData = [
-            'secret' => config('turnstile.site_secret'),
+            'secret' => config('turnstile.secret_key') ?: config('turnstile.site_secret'),
             'response' => $token,
         ];
 
