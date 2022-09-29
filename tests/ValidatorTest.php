@@ -84,7 +84,7 @@ class ValidatorTest extends TestCase
         $client = Mockery::mock(Client::class);
         $client
             ->expects('post')
-            ->andThrow(new ($exception)('Error', new Request('POST', '/'), new Response($status, [], json_encode($response))));
+            ->andThrow(new $exception('Error', new Request('POST', '/'), new Response($status, [], json_encode($response))));
 
         return $client;
     }
