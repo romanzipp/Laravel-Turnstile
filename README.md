@@ -44,6 +44,21 @@ $payload = $request->validate([
 ]);
 ```
 
+### Manual validation
+
+```php
+use romanzipp\Turnstile\Validator;
+
+$validator = new Validator();
+$response = $validator->validate('input-token');
+
+if ($response->isValid()) {
+    return true;
+}
+
+echo $response->getMessage();
+```
+
 ### Templates
 
 #### Document head

@@ -24,6 +24,11 @@ class ValidationResponse
         $this->errors = $errors;
     }
 
+    public function isValid(): bool
+    {
+        return $this->valid;
+    }
+
     public function getMessage(): string
     {
         if (empty($this->errors)) {
