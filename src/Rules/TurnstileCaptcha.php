@@ -20,7 +20,7 @@ class TurnstileCaptcha implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        $this->response = (new Validator())->isValid($value);
+        $this->response = (new Validator())->validate($value);
 
         return $this->response->valid;
     }

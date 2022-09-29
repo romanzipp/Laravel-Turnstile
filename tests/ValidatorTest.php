@@ -16,7 +16,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getClient(200, ['success' => true])
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertTrue($response->valid);
     }
@@ -25,7 +25,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getClient(200, [])
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertFalse($response->valid);
         self::assertSame('The CAPTCHA validation response is malformed', $response->getMessage());
@@ -35,7 +35,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getClient(200, ['success' => false])
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertFalse($response->valid);
     }
@@ -44,7 +44,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getFailingClient(400, ['success' => false, 'error-codes' => ['test']], ClientException::class)
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertFalse($response->valid);
     }
@@ -53,7 +53,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getFailingClient(400, ['success' => false, 'error-codes' => ['foo']], ClientException::class)
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertFalse($response->valid);
         self::assertSame(['foo'], $response->errors);
@@ -63,7 +63,7 @@ class ValidatorTest extends TestCase
     {
         $response = (new Validator(
             self::getFailingClient(500, ['success' => false, 'error-codes' => ['test']], ServerException::class)
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertFalse($response->valid);
     }
@@ -74,7 +74,7 @@ class ValidatorTest extends TestCase
 
         $response = (new Validator(
             self::getFailingClient(500, ['success' => false, 'error-codes' => ['test']], ServerException::class)
-        ))->isValid('foo');
+        ))->validate('foo');
 
         self::assertTrue($response->valid);
     }
@@ -92,7 +92,7 @@ class ValidatorTest extends TestCase
     private static function getClient(int $status, array $response)
     {
         $client = Mockery::mock(Client::class);
-        $expect = $client->expects('post')->andReturn(new Response($status, [], json_encode($response)));
+        $client->expects('post')->andReturn(new Response($status, [], json_encode($response)));
 
         return $client;
     }
