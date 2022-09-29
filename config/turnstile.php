@@ -6,4 +6,7 @@ return [
 
     // Include visitor IP adresse in verify challenge data
     'include_ip' => false,
+
+    // Allow access in case the HTTP request fails with an 5xx error
+    'allow_on_failure' => false,
 ];
