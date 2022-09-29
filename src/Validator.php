@@ -18,7 +18,7 @@ class Validator
         $this->client = $client ?? new Client();
     }
 
-    public function isValid(?string $token): ValidationResponse
+    public function validate(?string $token): ValidationResponse
     {
         $formData = [
             'secret' => config('turnstile.secret_key') ?: config('turnstile.site_secret'),
@@ -67,5 +67,17 @@ class Validator
         } catch (Throwable $exception) {
             return new ValidationResponse(false, [$exception->getMessage()]);
         }
+    }
+
+    /**
+     * @deprecated
+     *
+     * @param string|null $token
+     *
+     * @return \romanzipp\Turnstile\ValidationResponse
+     */
+    public function isValid(?string $token): ValidationResponse
+    {
+        return $this->validate($token);
     }
 }
