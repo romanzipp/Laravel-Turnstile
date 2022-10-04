@@ -44,21 +44,6 @@ $payload = $request->validate([
 ]);
 ```
 
-### Manual validation
-
-```php
-use romanzipp\Turnstile\Validator;
-
-$validator = new Validator();
-$response = $validator->validate('input-token');
-
-if ($response->isValid()) {
-    return true;
-}
-
-echo $response->getMessage();
-```
-
 ### Templates
 
 #### Document head
@@ -75,6 +60,23 @@ Injects the [form element](https://developers.cloudflare.com/turnstile/get-start
 
 ```blade
 {{ romanzipp\Turnstile\Captcha::getChallenge() }}
+```
+
+---
+
+### Manual validation (optional)
+
+```php
+use romanzipp\Turnstile\Validator;
+
+$validator = new Validator();
+$response = $validator->validate('input-token');
+
+if ($response->isValid()) {
+    return true;
+}
+
+echo $response->getMessage();
 ```
 
 ## Development
