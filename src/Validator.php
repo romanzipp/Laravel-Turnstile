@@ -6,8 +6,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Http\Request;
-use stdClass;
-use Throwable;
 
 class Validator
 {
@@ -41,7 +39,7 @@ class Validator
 
             $data = json_decode($response->getBody()->getContents());
 
-            if ( ! ($data instanceof stdClass) || ! property_exists($data, 'success')) {
+            if ( ! ($data instanceof \stdClass) || ! property_exists($data, 'success')) {
                 return new ValidationResponse(false, [ValidationResponse::INTERNAL_MALFORMED_RESPONSE]);
             }
 
@@ -64,7 +62,7 @@ class Validator
             $data = @json_decode($exception->getResponse()->getBody()->getContents());
 
             return new ValidationResponse(false, $data->{'error-codes'} ?? []);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return new ValidationResponse(false, [$exception->getMessage()]);
         }
     }
