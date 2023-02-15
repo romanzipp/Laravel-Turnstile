@@ -3,9 +3,9 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/romanzipp/laravel-turnstile.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-turnstile)
 [![Total Downloads](https://img.shields.io/packagist/dt/romanzipp/laravel-turnstile.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-turnstile)
 [![License](https://img.shields.io/packagist/l/romanzipp/laravel-turnstile.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-turnstile)
-[![GitHub Build Status](https://img.shields.io/github/workflow/status/romanzipp/Laravel-Turnstile/Tests?style=flat-square&label=Tests)](https://github.com/romanzipp/Laravel-Turnstile/actions)
-[![GitHub Build Status](https://img.shields.io/github/workflow/status/romanzipp/Laravel-Turnstile/PHPStan?style=flat-square&label=PHPStan)](https://github.com/romanzipp/Laravel-Turnstile/actions)
-[![GitHub Build Status](https://img.shields.io/github/workflow/status/romanzipp/Laravel-Turnstile/PHP-CS-Fixer?style=flat-square&label=PHP-CS-Fixer)](https://github.com/romanzipp/Laravel-Turnstile/actions)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/romanzipp/Laravel-Turnstile/tests.yml?style=flat-square&label=Tests)](https://github.com/romanzipp/Laravel-Turnstile/actions)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/romanzipp/Laravel-Turnstile/phpstam.yml?style=flat-square&label=PHPStan)](https://github.com/romanzipp/Laravel-Turnstile/actions)
+[![GitHub Build Status](https://img.shields.io/github/actions/workflow/status/romanzipp/Laravel-Turnstile/php-cs-fixer.yml?style=flat-square&label=PHP-CS-Fixer)](https://github.com/romanzipp/Laravel-Turnstile/actions)
 
 [Cloudflare Turnstile](https://blog.cloudflare.com/turnstile-private-captcha-alternative/) CAPTCHA package for Laravel.
 
