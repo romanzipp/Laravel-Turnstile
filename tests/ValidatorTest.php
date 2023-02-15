@@ -7,7 +7,6 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Mockery;
 use romanzipp\Turnstile\Validator;
 
 class ValidatorTest extends TestCase
@@ -81,7 +80,7 @@ class ValidatorTest extends TestCase
 
     private static function getFailingClient(int $status, array $response, string $exception)
     {
-        $client = Mockery::mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client
             ->expects('post')
             ->andThrow(new $exception('Error', new Request('POST', '/'), new Response($status, [], json_encode($response))));
@@ -91,7 +90,7 @@ class ValidatorTest extends TestCase
 
     private static function getClient(int $status, array $response)
     {
-        $client = Mockery::mock(Client::class);
+        $client = \Mockery::mock(Client::class);
         $client->expects('post')->andReturn(new Response($status, [], json_encode($response)));
 
         return $client;
