@@ -8,7 +8,7 @@ use romanzipp\Turnstile\Validator;
 
 class TurnstileCaptcha implements Rule
 {
-    public ValidationResponse  $response;
+    public ValidationResponse $response;
 
     /**
      * Determine if the validation rule passes.

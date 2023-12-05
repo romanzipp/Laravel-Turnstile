@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class Validator
 {
-    private Client  $client;
+    private Client $client;
 
     public function __construct(Client $client = null)
     {

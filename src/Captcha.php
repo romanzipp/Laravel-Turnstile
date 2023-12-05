@@ -23,7 +23,7 @@ class Captcha
         );
     }
 
-    public static function getChallenge(?string $theme = null, ?string $action = null, ?string $cData = null): HtmlString
+    public static function getChallenge(string $theme = null, string $action = null, string $cData = null): HtmlString
     {
         $parameters = [
             'class' => 'cf-turnstile',
