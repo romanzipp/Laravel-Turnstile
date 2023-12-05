@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 
 class Captcha
 {
-    public static function getScript(bool $async = true, bool $defer = true): HtmlString
+    public static function getScript(bool $async = true, bool $defer = true, ?string $callback = null): HtmlString
     {
         $attributes = [];
 
@@ -16,6 +16,10 @@ class Captcha
 
         if ($defer) {
             $attributes[] = 'defer';
+        }
+
+        if (!empty($callback)) {
+            $attributes[] = 'data-callback="'.$callback.'"';
         }
 
         return new HtmlString(
