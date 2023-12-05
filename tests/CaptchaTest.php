@@ -23,5 +23,9 @@ class CaptchaTest extends TestCase
         self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>', (string) Captcha::getScript(true, true));
         self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>', (string) Captcha::getScript(false, true));
         self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" ></script>', (string) Captcha::getScript(false, false));
+        self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer data-callback="cb"></script>', (string) Captcha::getScript(true, true, 'cb'));
+        self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer data-callback="cb"></script>', (string) Captcha::getScript(false, true, 'cb'));
+        self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async data-callback="cb"></script>', (string) Captcha::getScript(true, false, 'cb'));
+        self::assertSame('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" data-callback="cb"></script>', (string) Captcha::getScript(false, false, 'cb'));
     }
 }
