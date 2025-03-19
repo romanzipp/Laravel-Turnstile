@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 
 class Captcha
 {
-    public static function getScript(bool $async = true, bool $defer = true, string $callback = null): HtmlString
+    public static function getScript(bool $async = true, bool $defer = true, ?string $callback = null): HtmlString
     {
         $attributes = [];
 
@@ -27,7 +27,7 @@ class Captcha
         );
     }
 
-    public static function getChallenge(string $theme = null, string $action = null, string $cData = null): HtmlString
+    public static function getChallenge(?string $theme = null, ?string $action = null, ?string $cData = null): HtmlString
     {
         $parameters = [
             'class' => 'cf-turnstile',
