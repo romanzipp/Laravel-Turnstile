@@ -3,6 +3,7 @@
 namespace romanzipp\Turnstile;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Http\Request;
@@ -54,14 +55,16 @@ class Validator
             }
 
             return new ValidationResponse(false, [ValidationResponse::INTERNAL_SERVER_ERROR]);
-        } catch (RequestException $exception) {
-            if ( ! $exception->hasResponse() || 0 === $exception->getResponse()->getBody()->getSize()) {
+        } catch (BadResponseException $exception) {
+            if (0 === $exception->getResponse()->getBody()->getSize()) {
                 return new ValidationResponse(false);
             }
 
             $data = @json_decode($exception->getResponse()->getBody()->getContents());
 
             return new ValidationResponse(false, $data->{'error-codes'} ?? []);
+        } catch (RequestException $exception) {
+            return new ValidationResponse(false);
         } catch (\Throwable $exception) {
             return new ValidationResponse(false, [$exception->getMessage()]);
         }
